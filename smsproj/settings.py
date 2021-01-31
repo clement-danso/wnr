@@ -144,6 +144,8 @@ os.path.join(BASE_DIR, 'assets'),
 
 LOGIN_URL = 'login'
 
-
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+django_heroku.settings(locals())
+
+

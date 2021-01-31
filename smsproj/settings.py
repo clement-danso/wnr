@@ -27,7 +27,7 @@ SECRET_KEY = 'puzx_4qb9^@kb+rwsgvig4_uvgj$+$&^kp+zb27z@nqf#blg8!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wnsms.herokuapp.com']
 
 
 # Application definition

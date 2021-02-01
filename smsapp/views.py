@@ -65,7 +65,7 @@ def createrecord(request):
 		apiKey = 'rT5L5lrhhoCaP0BfKlSU9dNh6Vqp5RFwLKhQ6I8n7KyWL'
 		data = {
 			   'recipient[]': fon,
-			   'sender': 'Quoda',
+			   'sender': 'HR WNRHD',
 			   'message': 'Hello %s thank you for joining GHS WN RHD' % firstname,
 			   'is_schedule': False,
 			   'schedule_date': ''
@@ -131,7 +131,7 @@ def createbmessage(request):
 			apiKey = 'rT5L5lrhhoCaP0BfKlSU9dNh6Vqp5RFwLKhQ6I8n7KyWL'
 			data = {
 			   'recipient[]': [recod.Mobile],
-			   'sender': 'Quoda',
+			   'sender': 'HR WNRHD',
 			   'message': cont,
 			   'is_schedule': False,
 			   'schedule_date': ''

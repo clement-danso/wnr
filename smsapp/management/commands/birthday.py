@@ -24,7 +24,7 @@ class Command(BaseCommand):
 			apiKey = 'rT5L5lrhhoCaP0BfKlSU9dNh6Vqp5RFwLKhQ6I8n7KyWL' 
 			data = {
 			   'recipient[]': [record.Mobile],
-			   'sender': 'Quoda',
+			   'sender': 'HR WNRHD',
 			   'message': 'Good morning. Happy birthday %s!' % record.FirstName,
 			   'is_schedule': False,
 			   'schedule_date': ''

@@ -50,18 +50,18 @@
           {% if user.is_authenticated %}
 		  <span>
 			  <li class="nav-item">
-				<a class="nav-link" href="">Hello, {{request.user}}</a>
+				<a class="nav-link" href=""><b>Hello, {{request.user}}</b></a>
 			  </li>
 		  </span>
 		  <span>
 			   <li class="nav-item">
-				<a class="nav-link" href="{% url 'logoutuser' %}">Logout</a>
+				<a class="nav-link" href="{% url 'logoutuser' %}"><b>Logout</b></a>
 			  </li>
 		  </span>
 		  {% else %}
 		   <span>
 			   <li class="nav-item">
-				<a class="nav-link" href="{% url 'login' %}">Login</a>
+				<a class="nav-link" href="{% url 'login' %}"><b>Login</b></a>
 			  </li>
 		  </span>
 		  {%  endif %}

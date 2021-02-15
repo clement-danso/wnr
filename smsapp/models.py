@@ -27,9 +27,21 @@ class bmc(models.Model):
 	
 	def __str__(self):
 		return self.bmcName
+		
+class category(models.Model):
+	catName = models.CharField(max_length=50)
+	
+	class Meta:
+		verbose_name_plural='Categories'
+		
+	def __str__(self):
+		return self.catName
+		
+	
 	
 class grade(models.Model):
 	grade = models.CharField(max_length=50)
+	category = models.ForeignKey(category, null=True, on_delete=models.SET_NULL)
 	
 	def __str__(self):
 		return self.grade
@@ -84,22 +96,22 @@ class records(models.Model):
 			
 			 )
 	
-	EmpNumber = models.CharField(max_length=11,primary_key=True)
-	Title = models.CharField(max_length=11, choices=TITLE, default=TITLE[0][0])
-	FirstName = models.CharField(max_length=50)
-	LastName = models.CharField(max_length=50)
-	OtherName = models.CharField(max_length=50)
+	EmpNumber = models.CharField(max_length=11,primary_key=True, verbose_name='Employment Number')
+	Title = models.CharField(max_length=11, choices=TITLE, default=TITLE[0][0], blank=True)
+	FirstName = models.CharField(max_length=50, verbose_name='First Name')
+	LastName = models.CharField(max_length=50, verbose_name='Last Name')
+	OtherName = models.CharField(max_length=50, verbose_name='Other Name', blank=True)
 	Gender = models.CharField(max_length=10, choices=GENDER)
-	DOB = models.DateField()
-	MaritalStatus = models.CharField(max_length=10, choices=MARITAL_STATUS)
-	Religion = models.CharField(max_length=10, choices=RELIGION)
-	OfficialEmail= models.CharField(max_length=50, unique=True)
-	PersonalEmail= models.CharField(max_length=50, unique=True)
-	Mobile = models.CharField(max_length=10, unique=True)
-	Mobile1 = models.CharField(max_length=10, unique=True)
-	FirstAppDate = models.DateField()
-	AssumptionDutyDate= models.DateField()
-	bmc = models.ForeignKey(bmc, null=True, on_delete=models.SET_NULL)
+	DOB = models.DateField(verbose_name='Date of Birth')
+	MaritalStatus = models.CharField(max_length=10, choices=MARITAL_STATUS, verbose_name='Marital Status')
+	Religion = models.CharField(max_length=10, choices=RELIGION, blank=True)
+	OfficialEmail= models.CharField(max_length=50,verbose_name='Official Email', unique=True, blank=True)
+	PersonalEmail= models.CharField(max_length=50, verbose_name='Personal Email', unique=True, blank=True)
+	Mobile = models.CharField(max_length=10, verbose_name='1st Mobile', unique=True)
+	Mobile1 = models.CharField(max_length=10,verbose_name='2nd Mobile', unique=True, blank=True)
+	FirstAppDate = models.DateField(verbose_name='First Appointment Date')
+	AssumptionDutyDate= models.DateField(verbose_name='Date of Assumption of Duty')
+	bmc = models.ForeignKey(bmc, null=True, verbose_name='BMC', on_delete=models.SET_NULL)
 	unit = models.ForeignKey(unit, null=True, on_delete=models.SET_NULL)
 	grade = models.ForeignKey(grade, null=True, on_delete=models.SET_NULL)
 	group = models.ForeignKey(group, null=True, on_delete=models.SET_NULL)

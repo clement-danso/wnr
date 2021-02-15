@@ -148,4 +148,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 django_heroku.settings(locals())
 
+SESSION_COOKIE_AGE = 5*60
 

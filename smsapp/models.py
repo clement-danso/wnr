@@ -46,6 +46,9 @@ class grade(models.Model):
 	grade = models.CharField(max_length=50)
 	category = models.ForeignKey(category, null=True, on_delete=models.SET_NULL)
 	
+	class Meta:
+		ordering = ('grade',)
+	
 	def __str__(self):
 		return self.grade
 	

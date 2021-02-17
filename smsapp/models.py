@@ -25,6 +25,9 @@ class bmc(models.Model):
 	bmcName = models.CharField(max_length=50)
 	subdistrict = models.ForeignKey(subdistrict, null=True, on_delete=models.SET_NULL)
 	
+	class Meta:
+		ordering = ('bmcName',)
+	
 	def __str__(self):
 		return self.bmcName
 		

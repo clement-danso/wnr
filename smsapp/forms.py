@@ -5,7 +5,7 @@ from smsapp.models import records, group, broadcastmessage
 class RecordsForm(forms.ModelForm):
 	class Meta:
 		model = records
-		fields = '__all__'
+		exclude = ['status']
 		
 		widgets = {
             'EmpNumber': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'Enter employment number'}),
@@ -27,7 +27,6 @@ class RecordsForm(forms.ModelForm):
             'unit': forms.Select (attrs={'class': 'form-control'}),
             'grade': forms.Select (attrs={'class': 'form-control'}),
             'group': forms.Select (attrs={'class': 'form-control'}),
-            'status': forms.Select (attrs={'class': 'form-control'}),
             
         }
         

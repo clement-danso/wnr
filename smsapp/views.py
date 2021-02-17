@@ -13,7 +13,7 @@ def home(request):
 	today = timezone.now().date()
 	alrecods=records.objects.all()
 	recods=records.objects.all().order_by('-date_created')[:5]
-	deliveries=delivery.objects.all().order_by('-date_created')[:10]
+	deliveries=delivery.objects.all().order_by('-date_created')[:5]
 	aldeliveries=delivery.objects.all()
 	act_recods=records.objects.filter(status='Active')
 	inact_recods=records.objects.filter(status='Inactive')
@@ -66,7 +66,7 @@ def createrecord(request):
 		data = {
 			   'recipient[]': fon,
 			   'sender': 'HR WNRHD',
-			   'message': 'Hello %s thank you for joining GHS WN RHD' % firstname,
+			   'message': 'Dear %s, You are welcome to the Western North Regional Health Directorate SMS platform. Thank you for accepting to be posted to the region.' % firstname,
 			   'is_schedule': False,
 			   'schedule_date': ''
 			}

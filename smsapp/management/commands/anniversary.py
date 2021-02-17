@@ -5,6 +5,7 @@ born on the current day and month.
 import requests
 import json
 from datetime import date
+import inflect
 
 from django.core.management import BaseCommand
 from django.core.mail import send_mail
@@ -16,12 +17,15 @@ from smsapp.models import records, delivery
 class Command(BaseCommand):
 	def handle(self, **options):
 		today = timezone.now().date()
+		p=inflect.engine()
+		
 		for record in records.objects.filter(FirstAppDate__day=today.day, FirstAppDate__month=today.month):
 			
 			age= date.today()-record.FirstAppDate
 			age_in_days=age.days
 			age_in_yrs = age_in_days/365
-		
+			rounded_age=int(age_in_yrs)
+			ordinalised_age= p.ordinal(rounded_age)
 			#subject = 'Happy birthday %s!' % records.FirstName
 			#body = 'Hi %s,\n...' + user.first_name
 			#send_mail(subject, body, 'contact@yourdomain.com', [user.email])
@@ -31,13 +35,32 @@ class Command(BaseCommand):
 			data = {
 			   'recipient[]': [record.Mobile],
 			   'sender': 'HR WNRHD',
-			   'message': "Hello {}, congratulations on your {} th service anniversary today! You have been such significant part of our team and we couldn't imagine our workplace without you. Happy work anniversary!" .format(record.FirstName, age_in_yrs),
+			   'message': "Hello %s, congratulations on your %s service anniversary today! You have been such significant part of our team and we couldn't imagine our workplace without you. Happy work anniversary!" % (record.FirstName, ordinalised_age),
 			    
 			   'is_schedule': False,
 			   'schedule_date': ''
 			}
+						
 			url = endPoint + '?key=' + apiKey
 			response = requests.post(url, data)
 			data = response.json()
 			
-			print(data)
+			bstatus=json.dumps(data['status'])
+			bsmstype='Anniversary'
+			btotalsent=json.dumps(data["summary"]["total_sent"])
+			btotalrejected=json.dumps(data["summary"]["total_rejected"])
+			brecipient=json.dumps(data["summary"]["numbers_sent"])
+			bcreditused=json.dumps(data["summary"]["credit_used"])
+			bcreditleft=json.dumps(data["summary"]["credit_left"])
+			
+			delivery_instance = delivery(
+										sms_status=bstatus, 
+										smstype=bsmstype, 
+										total_sent=btotalsent, 
+										total_rejected=btotalrejected, 
+										recipient=brecipient, 
+										credit_used=bcreditused, 
+										credit_left=bcreditleft
+										)
+			delivery_instance.save()
+			

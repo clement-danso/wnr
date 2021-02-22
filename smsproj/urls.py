@@ -25,11 +25,13 @@ urlpatterns = [
     path('newrecord/', views.createrecord, name="createrecord"),
     path('recordlist/', views.recordlist, name="recordlist"),
     path('grouplist/', views.grouplist, name="grouplist"),
-    path('newbmessage/', views.createbmessage, name="createbmessage"),
+    path('newbmessagecat/', views.createbmessagecat, name="createbmessagecat"),
+    path('newbmessagedis/', views.createbmessagedis, name="createbmessagedis"),
     path('newgroup/', views.creategroup, name="creategroup"),
     path('newmesstemp/', views.messtemp, name="messtemp"),
     path('templatelist/', views.templatelist, name="templatelist"),
     path('deliverylist/', views.deliverylist, name="deliverylist"),
+    path('bcriteria/', views.bcriteria, name="bcriteria"),
     
     
     #paths for the users app

@@ -1,0 +1,49 @@
+{% extends 'smsapp/base.html' %}
+
+{% load static %}
+
+{% block title %} <title>Broadcast criteria</title> {% endblock %}
+
+{% block content %}
+
+
+
+<style>
+.myform {
+  margin: 70px 400px;
+}
+</style>
+
+  
+
+
+
+
+<div class="myform">	
+<div class="jumbotron">
+	<b>Hello, {{request.user}}</b> <br>
+	<p>Before you continue, by which criteria do you want to select records for the broadcast?</p>
+	<br>
+<form action="{% url 'bcriteria' %}" method="POST">
+  {% csrf_token %}
+	
+				
+						
+						  <label class="radio">
+							<input type="radio" name="criteria" value="district" checked>
+							District
+						  </label>
+						  <label class="radio">
+							<input type="radio" name="criteria" value="category" >
+							Category
+						  </label>
+					<br><br>
+					<button type="button" class="btn btn-secondary">Cancel</button>
+					<button type="submit" class="btn btn-primary" >Continue</button>
+					
+</form>
+</div>
+</div>
+
+{% endblock %}
+

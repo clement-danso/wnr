@@ -115,12 +115,12 @@ class records(models.Model):
 	PersonalEmail= models.CharField(max_length=50, verbose_name='Personal Email', unique=True, blank=True)
 	Mobile = models.CharField(max_length=10, verbose_name='1st Mobile', unique=True)
 	Mobile1 = models.CharField(max_length=10,verbose_name='2nd Mobile', unique=True, blank=True)
+	category = models.ForeignKey(category, null=True, verbose_name='Category', on_delete=models.SET_NULL)
 	FirstAppDate = models.DateField(verbose_name='First Appointment Date')
 	AssumptionDutyDate= models.DateField(verbose_name='Date of Assumption of Duty')
 	bmc = models.ForeignKey(bmc, null=True, verbose_name='BMC', on_delete=models.SET_NULL)
 	unit = models.ForeignKey(unit, null=True, on_delete=models.SET_NULL)
 	grade = models.ForeignKey(grade, null=True, on_delete=models.SET_NULL)
-	group = models.ForeignKey(group, null=True, on_delete=models.SET_NULL)
 	status = models.CharField(max_length=10, choices=STATUS, default=STATUS[0][0])
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
@@ -133,16 +133,34 @@ class records(models.Model):
 
 
 
-class broadcastmessage(models.Model):
+class broadcastmessagecat(models.Model):
+	
+	
 	Subject=models.CharField(max_length=50)
 	Content=models.CharField(max_length=400)
-	Group = models.ForeignKey(group, null=True, on_delete=models.SET_NULL)
+	category=models.ForeignKey(category, null=True, on_delete=models.SET_NULL)
+	
 	
 	class Meta:
-		verbose_name_plural='Broadcast Messages'
+		verbose_name_plural='District Broadcast Messages'
 	
 	def __str__(self):
-		return self.Title
+		return self.Subject
+
+class broadcastmessagedis(models.Model):
+	
+	
+	Subject=models.CharField(max_length=50)
+	Content=models.CharField(max_length=400)
+	district=models.ForeignKey(district, null=True, on_delete=models.SET_NULL)
+	
+	
+	class Meta:
+		verbose_name_plural='District Broadcast Messages'
+	
+	def __str__(self):
+		return self.Subject
+
 
 class delivery(models.Model):
 	sms_status = models.CharField(max_length=50)

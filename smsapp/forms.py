@@ -1,11 +1,11 @@
 from django import forms  
-from smsapp.models import records, group, broadcastmessage
+from smsapp.models import records, group, broadcastmessagecat, broadcastmessagedis
 
 
 class RecordsForm(forms.ModelForm):
 	class Meta:
 		model = records
-		exclude = ['status']
+		exclude = ['status','group']
 		
 		widgets = {
             'EmpNumber': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'Enter employment number'}),
@@ -26,23 +26,37 @@ class RecordsForm(forms.ModelForm):
             'bmc': forms.Select (attrs={'class': 'form-control'}),
             'unit': forms.Select (attrs={'class': 'form-control'}),
             'grade': forms.Select (attrs={'class': 'form-control'}),
-            'group': forms.Select (attrs={'class': 'form-control'}),
+           # 'group': forms.Select (attrs={'class': 'form-control'}),
             
         }
         
-class BroadcastmessageForm(forms.ModelForm):
+class BroadcastmessagecatForm(forms.ModelForm):
 	class Meta:
-		model = broadcastmessage
+		model = broadcastmessagecat
 		fields = '__all__'
 		
 		widgets = {
 			'Subject': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'Eg: Pin Renewal'}),
 			'Content': forms.Textarea (attrs={'class': 'form-control', "rows":5, 'placeholder':'Enter the content of your message here'}),
-            'Group': forms.Select (attrs={'class': 'form-control'}),
+			'category':forms.Select (attrs={'class': 'form-control'}),
+            #'Group': forms.Select (attrs={'class': 'form-control'}),
         
             
         }
         
+class BroadcastmessagedisForm(forms.ModelForm):
+	class Meta:
+		model = broadcastmessagedis
+		fields = '__all__'
+		
+		widgets = {
+			'Subject': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'Eg: Pin Renewal'}),
+			'Content': forms.Textarea (attrs={'class': 'form-control', "rows":5, 'placeholder':'Enter the content of your message here'}),
+			'district':forms.Select (attrs={'class': 'form-control'}),
+            #'Group': forms.Select (attrs={'class': 'form-control'}),
+        
+            
+        }
 
 class GroupForm(forms.ModelForm):
 	class Meta:

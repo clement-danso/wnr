@@ -114,15 +114,81 @@ def creategroup(request):
 	context = {'fm':fm}
 	return render(request, 'smsapp/groupfrm.html', context)
 
+
 @login_required
-def createbmessage(request):
-	"""form page for creating records"""
-	fm = BroadcastmessageForm()
-	if request.method == 'POST':
-		fm = BroadcastmessageForm(request.POST)
-		grup=request.POST.get('Group')
+def bcriteria(request):
+	crit=request.POST.get('criteria')
+	if request.method == 'POST' and crit=='district':
+		return redirect('/newbmessagedis')
+	elif request.method =='POST' and crit=='category':
+		return redirect('/newbmessagecat')
+	
+	
+	
 		
-		group_records=records.objects.filter(group=grup)
+	context = {}
+	return render(request, 'smsapp/bcriteria.html', context)
+
+@login_required
+def createbmessagedis(request):
+	"""form page for creating records"""
+	fm = BroadcastmessagedisForm()
+	if request.method == 'POST':
+		fm = BroadcastmessagedisForm(request.POST)
+		dist=request.POST.get('district')
+		
+		dist_records=records.objects.filter(bmc__subdistrict__district=dist)
+		
+		cont=request.POST.get('Content')
+		
+		for recod in dist_records:
+			endPoint = 'https://api.mnotify.com/api/sms/quick'
+			apiKey = 'rT5L5lrhhoCaP0BfKlSU9dNh6Vqp5RFwLKhQ6I8n7KyWL'
+			data = {
+			   'recipient[]': [recod.Mobile],
+			   'sender': 'HR WNRHD',
+			   'message': cont,
+			   'is_schedule': False,
+			   'schedule_date': ''
+			}
+			url = endPoint + '?key=' + apiKey
+			response = requests.post(url, data)
+			data = response.json()
+			
+			bstatus=json.dumps(data['status'])
+			bsmstype='Broadcast'
+			btotalsent=json.dumps(data["summary"]["total_sent"])
+			btotalrejected=json.dumps(data["summary"]["total_rejected"])
+			brecipient=json.dumps(data["summary"]["numbers_sent"])
+			bcreditused=json.dumps(data["summary"]["credit_used"])
+			bcreditleft=json.dumps(data["summary"]["credit_left"])
+			
+			delivery_instance = delivery(
+									sms_status=bstatus, 
+									smstype=bsmstype, 
+									total_sent=btotalsent, 
+									total_rejected=btotalrejected, 
+									recipient=brecipient, 
+									credit_used=bcreditused, 
+									credit_left=bcreditleft
+									)
+			delivery_instance.save()
+			
+			return redirect('/home')
+	
+	context = {'fm':fm}
+	
+	return render(request, 'smsapp/bcmessagedisfrm.html', context)
+
+@login_required
+def createbmessagecat(request):
+	"""form page for creating records"""
+	fm = BroadcastmessagecatForm()
+	if request.method == 'POST':
+		fm = BroadcastmessagecatForm(request.POST)
+		cat=request.POST.get('category')
+		
+		cat_records=records.objects.filter(category=cat)
 		
 		cont=request.POST.get('Content')
 		
@@ -163,7 +229,7 @@ def createbmessage(request):
 	
 	context = {'fm':fm}
 	
-	return render(request, 'smsapp/bcmessagefrm.html', context)
+	return render(request, 'smsapp/bcmessagecatfrm.html', context)
 
 @login_required
 def messtemp(request):

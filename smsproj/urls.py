@@ -33,6 +33,9 @@ urlpatterns = [
     path('deliverylist/', views.deliverylist, name="deliverylist"),
     path('bcriteria/', views.bcriteria, name="bcriteria"),
     
+    path('ajax/load-grades/', views.load_grades, name='ajax_load_grades'),
+    
+    
     
     #paths for the users app
     path('register/', user_views.register, name="register"),

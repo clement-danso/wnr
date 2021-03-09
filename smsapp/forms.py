@@ -1,5 +1,5 @@
 from django import forms  
-from smsapp.models import records, group, broadcastmessagecat, broadcastmessagedis
+from smsapp.models import records, group, broadcastmessagecat, broadcastmessagedis, grade
 
 
 class RecordsForm(forms.ModelForm):
@@ -23,12 +23,18 @@ class RecordsForm(forms.ModelForm):
             'Mobile1': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'10 digits number'}),
             'FirstAppDate': forms.TextInput (attrs={'type':'date', 'class': 'form-control'}),
             'AssumptionDutyDate': forms.TextInput (attrs={'type':'date', 'class': 'form-control'}),
+            'category': forms.Select (attrs={'class': 'form-control'}),
+            'grade': forms.Select (attrs={'class': 'form-control'}),
             'bmc': forms.Select (attrs={'class': 'form-control'}),
             'unit': forms.Select (attrs={'class': 'form-control'}),
-            'grade': forms.Select (attrs={'class': 'form-control'}),
+            
            # 'group': forms.Select (attrs={'class': 'form-control'}),
             
         }
+        
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['grade'].queryset = grade.objects.none()
         
 class BroadcastmessagecatForm(forms.ModelForm):
 	class Meta:

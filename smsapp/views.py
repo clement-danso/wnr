@@ -7,6 +7,11 @@ import json
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+def load_grades(request):
+    category_id = request.GET.get('category_id')
+    grades = grade.objects.filter(category_id=category_id).order_by('grade')
+    
+    return render(request, 'smsapp/grades_dropdown_list_options.html', {'grades': grades})
 
 @login_required
 def home(request):
@@ -46,6 +51,7 @@ def home(request):
 @login_required
 def createrecord(request):
 	"""form page for creating records"""
+
 	fm = RecordsForm()
 	if request.method == 'POST':
 		fm = RecordsForm(request.POST)

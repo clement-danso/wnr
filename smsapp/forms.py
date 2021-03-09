@@ -36,6 +36,17 @@ class RecordsForm(forms.ModelForm):
 		super().__init__(*args, **kwargs)
 		self.fields['grade'].queryset = grade.objects.none()
         
+		if 'category' in self.data:
+			try:
+				category_id = int(self.data.get('category'))
+				self.fields['grade'].queryset = grade.objects.filter(category_id=category_id).order_by('grade')
+			except (ValueError, TypeError):
+				pass  # invalid input from the client; ignore and fallback to empty City queryset
+		elif self.instance.pk:
+			self.fields['grade'].queryset = self.instance.category.grade_set.order_by('grade')
+
+        
+        
 class BroadcastmessagecatForm(forms.ModelForm):
 	class Meta:
 		model = broadcastmessagecat

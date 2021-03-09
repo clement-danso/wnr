@@ -6,7 +6,7 @@ import requests
 import json
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-
+@login_required
 def load_grades(request):
     category_id = request.GET.get('category_id')
     grades = grade.objects.filter(category_id=category_id).order_by('grade')
@@ -58,7 +58,8 @@ def createrecord(request):
 		
 		if fm.is_valid():
 			fm.save()
-		
+			
+
 		fon=request.POST.get('Mobile')
 		titlename=request.POST.get('Title')
 		firstname=request.POST.get('FirstName')

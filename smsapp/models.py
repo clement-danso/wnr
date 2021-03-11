@@ -2,27 +2,27 @@ from django.db import models
 
 # Create your models here.
 class region(models.Model):
-	regionName = models.CharField(max_length = 50)
+	regionName = models.CharField(max_length = 100)
 	
 	def __str__(self):
 		return self.regionName
 	
 class district(models.Model):
-	districtName = models.CharField(max_length= 50)
+	districtName = models.CharField(max_length= 100)
 	region = models.ForeignKey(region, null=True, on_delete=models.SET_NULL)
 	
 	def __str__(self):
 		return self.districtName
 	
 class subdistrict(models.Model):
-	subdistrictName = models.CharField(max_length=50)
+	subdistrictName = models.CharField(max_length=100)
 	district = models.ForeignKey(district, null=True, on_delete=models.SET_NULL)
 	
 	def __str__(self):
 		return self.subdistrictName
 	
 class bmc(models.Model):
-	bmcName = models.CharField(max_length=50)
+	bmcName = models.CharField(max_length=100)
 	subdistrict = models.ForeignKey(subdistrict, null=True, on_delete=models.SET_NULL)
 	
 	class Meta:
@@ -43,7 +43,7 @@ class category(models.Model):
 	
 	
 class grade(models.Model):
-	grade = models.CharField(max_length=50)
+	grade = models.CharField(max_length=100)
 	category = models.ForeignKey(category, null=True, on_delete=models.SET_NULL)
 	
 	class Meta:
@@ -54,7 +54,7 @@ class grade(models.Model):
 	
 class group(models.Model):
 	
-	groupName = models.CharField(max_length=50)
+	groupName = models.CharField(max_length=100)
 	
 	def __str__(self):
 		return self.groupName
@@ -62,7 +62,7 @@ class group(models.Model):
 
 	
 class unit(models.Model):
-	unit = models.CharField(max_length=50)
+	unit = models.CharField(max_length=100)
 	
 	def __str__(self):
 		return self.unit

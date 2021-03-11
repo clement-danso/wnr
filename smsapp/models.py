@@ -32,7 +32,7 @@ class bmc(models.Model):
 		return self.bmcName
 		
 class category(models.Model):
-	catName = models.CharField(max_length=50)
+	catName = models.CharField(max_length=100)
 	
 	class Meta:
 		verbose_name_plural='Categories'

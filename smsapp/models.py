@@ -102,7 +102,7 @@ class records(models.Model):
 			
 			 )
 	
-	EmpNumber = models.CharField(max_length=11,primary_key=True, verbose_name='Employment Number')
+	EmpNumber = models.CharField(max_length=15,primary_key=True, verbose_name='Employment Number')
 	Title = models.CharField(max_length=11, choices=TITLE, default=TITLE[0][0], blank=True)
 	FirstName = models.CharField(max_length=50, verbose_name='First Name')
 	LastName = models.CharField(max_length=50, verbose_name='Last Name')

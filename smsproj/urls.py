@@ -32,8 +32,15 @@ urlpatterns = [
     path('templatelist/', views.templatelist, name="templatelist"),
     path('deliverylist/', views.deliverylist, name="deliverylist"),
     path('bcriteria/', views.bcriteria, name="bcriteria"),
-    
+
     path('ajax/load-grades/', views.load_grades, name='ajax_load_grades'),
+    path('ajax/validate_empnumber/', views.validate_empnumber, name='validate_empnumber'),
+    
+    path('updaterecord/<str:pk>/', views.updaterecord, name="updaterecord"),
+    path('recordsupdate/<str:pk>/', views.records_update, name="recordsupdate"),
+    path('record_create/', views.record_create, name="record_create"),
+    path('trying/', views.trying, name='trying'),
+    
     
     
     

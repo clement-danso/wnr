@@ -123,6 +123,48 @@
       });
 
     });
-  </script>
+ </script>
+ 
+<script>
+	$("#id_EmpNumber").change(function () {
+		const empnumber = $(this).val();
+		const url = $("#recordForm").attr("empnumbvalidate-url");
+		console.log( $(this).val() );
+
+		$.ajax({
+           url: url,
+           data: {
+			'EmpNumber': empnumber       // add the country id to the GET parameters
+		   },
+		   
+		   success: function (data) {
+			   if (data.is_taken){
+				   alert("A record with this Employment Number already exists.")
+			   }
+			}
+        });
+    });
+</script>
+ 
+<script>
+    $(".js-create-record").click(function () {
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'record_create' %}",                    // set the url of the request (= localhost:8000/hr/ajax/load_grades/)
+		type: 'get',
+		dataType: 'json',
+		beforeSend: function(){
+			$("#modal-records").modal("show");
+		},
+        success: function (data) {
+        $("#modal-records .modal-content").html(data.html_form);
+      	}
+      });
+
+    });
+ </script>
+
+ <noscript>
+         Sorry...JavaScript is needed to go ahead.
+ </noscript>
 
 </html>

@@ -1,17 +1,48 @@
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.utils import timezone
 from smsapp.models import *
 from smsapp.forms import *
 import requests
 import json
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 # Create your views here.
+#
+
+def record_create(request):
+    form = RecordsForm()
+    context = {'form': form}
+    html_form = render_to_string('smsapp/partial_record_create.html',
+        context,
+        request=request,
+    )
+    return JsonResponse({'html_form': html_form})
+
+
 @login_required
 def load_grades(request):
     category_id = request.GET.get('category_id')
     grades = grade.objects.filter(category_id=category_id).order_by('grade')
     
     return render(request, 'smsapp/grades_dropdown_list_options.html', {'grades': grades})
+
+@login_required
+def validate_empnumber(request):
+    EmpNumber = request.GET.get('EmpNumber')
+    data = {
+        'is_taken': records.objects.filter(EmpNumber__iexact=EmpNumber).exists()
+    }
+    print(data)
+    return JsonResponse(data)
+
+
+def records_update(request):
+    EmpNumber = request.GET.get('EmpNumber')
+    recod = records.objects.filter(Empnumber__iexact=Empnumber)
+    
+    return JsonResponse(recod)
+
 
 @login_required
 def home(request):
@@ -60,50 +91,67 @@ def createrecord(request):
 			fm.save()
 			
 
-		fon=request.POST.get('Mobile')
-		titlename=request.POST.get('Title')
-		firstname=request.POST.get('FirstName')
-		lastname=request.POST.get('LastName')
-		emaill=request.POST.get('OfficialEmail')
-		dateOB=request.POST.get('DOB')
-		
-		
-		endPoint = 'https://api.mnotify.com/api/sms/quick'
-		apiKey = 'rT5L5lrhhoCaP0BfKlSU9dNh6Vqp5RFwLKhQ6I8n7KyWL'
-		data = {
-			   'recipient[]': fon,
-			   'sender': 'HR WNRHD',
-			   'message': 'Dear %s, You are welcome to the Western North Regional Health Directorate SMS platform. Thank you for accepting to be posted to the region.' % firstname,
-			   'is_schedule': False,
-			   'schedule_date': ''
-			}
-		url = endPoint + '?key=' + apiKey
-		response = requests.post(url, data)
-		data = response.json()
-		
-		bstatus=json.dumps(data['status'])
-		bsmstype='Welcome'
-		btotalsent=json.dumps(data["summary"]["total_sent"])
-		btotalrejected=json.dumps(data["summary"]["total_rejected"])
-		brecipient=json.dumps(data["summary"]["numbers_sent"])
-		bcreditused=json.dumps(data["summary"]["credit_used"])
-		bcreditleft=json.dumps(data["summary"]["credit_left"])
-		
-		delivery_instance = delivery(
-									sms_status=bstatus, 
-									smstype=bsmstype, 
-									total_sent=btotalsent, 
-									total_rejected=btotalrejected, 
-									recipient=brecipient, 
-									credit_used=bcreditused, 
-									credit_left=bcreditleft
-									)
-		delivery_instance.save()
+			fon=request.POST.get('Mobile')
+			titlename=request.POST.get('Title')
+			firstname=request.POST.get('FirstName')
+			lastname=request.POST.get('LastName')
+			emaill=request.POST.get('OfficialEmail')
+			dateOB=request.POST.get('DOB')
+			
+			
+			endPoint = 'https://api.mnotify.com/api/sms/quick'
+			apiKey = 'rT5L5lrhhoCaP0BfKlSU9dNh6Vqp5RFwLKhQ6I8n7KyWL'
+			data = {
+				'recipient[]': fon,
+				'sender': 'HR WNRHD',
+				'message': 'Dear %s, You are welcome to the Western North Regional Health Directorate SMS platform. Thank you for accepting to be posted to the region.\n\nRSVP: 0204912857' % firstname,
+				'is_schedule': False,
+				'schedule_date': ''
+				}
+			url = endPoint + '?key=' + apiKey
+			response = requests.post(url, data)
+			data = response.json()
+			
+			bstatus=json.dumps(data['status'])
+			bsmstype='Welcome'
+			btotalsent=json.dumps(data["summary"]["total_sent"])
+			btotalrejected=json.dumps(data["summary"]["total_rejected"])
+			brecipient=json.dumps(data["summary"]["numbers_sent"])
+			bcreditused=json.dumps(data["summary"]["credit_used"])
+			bcreditleft=json.dumps(data["summary"]["credit_left"])
+			
+			delivery_instance = delivery(
+										sms_status=bstatus, 
+										smstype=bsmstype, 
+										total_sent=btotalsent, 
+										total_rejected=btotalrejected, 
+										recipient=brecipient, 
+										credit_used=bcreditused, 
+										credit_left=bcreditleft
+										)
+			delivery_instance.save()
 		return redirect('/home')
 		
 	context = {'fm':fm}
 	
 	return render(request, 'smsapp/recordfrm.html', context)
+
+def updaterecord(request, pk):
+	"""form page for creating orders"""
+	record = records.objects.get(EmpNumber=pk)
+	fm = RecordsForm(instance=record)
+	
+	if request.method == 'POST':
+		fm = RecordsForm(request.POST or None, instance=record)
+		if fm.is_valid():
+			fm.save()
+			return redirect('/recordlist')
+	else:
+		fm = RecordsForm(instance=record)
+	
+	context = {'fm':fm}
+	return render (request, 'smsapp/recordfrm.html', context)
+
 
 @login_required
 def creategroup(request):
@@ -297,3 +345,13 @@ def deliverylist(request):
 	
 	context={'delivs':delivs}
 	return render(request, 'smsapp/deliveries.html', context)
+
+@login_required
+def trying(request):
+	recods=records.objects.all()
+	#record = records.objects.get(EmpNumber=pk)
+	fm = RecordsForm()
+	
+	context={'recods':recods, 'fm':fm}
+	return render(request, 'smsapp/trying.html', context)	
+	

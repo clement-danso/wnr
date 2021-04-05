@@ -17,7 +17,8 @@
 		<hr>
 		<div class="card card-body">
 			
-			<table class="table">
+			<table class="table table-striped">
+				<thead class="thead-dark">
 				<tr>
 					<th>Delivery Status</th>
 					<th>SMS Type</th>
@@ -27,6 +28,7 @@
 					<th>Credit Used</th>
 					<th>Credit Left</th>
 				</tr>
+				</thead>
 				
 				{% for delivery in delivs %}
 				<tr>	

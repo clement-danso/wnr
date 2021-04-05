@@ -78,7 +78,8 @@
 		<hr>
 		<div class="card card-body">
 			
-			<table class="table table-sm">
+			<table class="table table-striped">
+				<thead class="thead-dark">
 				<tr>
 					<th>First Name</th>
 					<th>Last Name</th>
@@ -89,6 +90,7 @@
 					
 					
 				</tr>
+				</thead>
 				{% for record in recods %}
 				<tr>
 					<td>{{ record.FirstName }}</a></td>
@@ -109,7 +111,8 @@
 		<h5>Sent Notifications (Last 5):</h5>
 		<hr>
 		<div class="card card-body">
-			<table class="table table-sm">
+			<table class="table table-striped">
+				<thead class="thead-dark">
 				<tr>
 					<th>Delivery Status</th>
 					<th>Number of Recipients</th>
@@ -118,6 +121,7 @@
 					<th>Credit Used</th>
 					<th>Credit Left</th>
 				</tr>
+				</thead>
 				
 				{% for delivery in deliveries %}
 				<tr>	

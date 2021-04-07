@@ -120,6 +120,7 @@
 					<th>Total Rejected</th>
 					<th>Credit Used</th>
 					<th>Credit Left</th>
+					<th>Timestamp</th>
 				</tr>
 				</thead>
 				
@@ -131,6 +132,7 @@
 					<td>{{ delivery.total_rejected }}</td>
 					<td>{{ delivery.credit_used }}</td>
 					<td>{{ delivery.credit_left }}</td>
+					<td>{{  delivery.date_created }}</td>
 					
 				</tr>
 				{% endfor %}

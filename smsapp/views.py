@@ -104,7 +104,7 @@ def createrecord(request):
 			data = {
 				'recipient[]': fon,
 				'sender': 'HR WNRHD',
-				'message': 'Dear %s, You are welcome to the Western North Regional Health Directorate SMS platform. Thank you for accepting to be posted to the region.\n\nRSVP: 0204912857' % firstname,
+				'message': 'Dear %s, You are welcome to the Western North Regional Health Directorate SMS platform. Thank you for joining this great health family.\nNB: This is a test \n\nRSVP: 0204912857' % firstname,
 				'is_schedule': False,
 				'schedule_date': ''
 				}
@@ -353,5 +353,5 @@ def trying(request):
 	fm = RecordsForm()
 	
 	context={'recods':recods, 'fm':fm}
-	return render(request, 'smsapp/trying.html', context)	
+	return render(request, 'smsapp/students_rv.ejs', context)	
 	

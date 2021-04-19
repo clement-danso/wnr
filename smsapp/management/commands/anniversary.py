@@ -19,9 +19,9 @@ class Command(BaseCommand):
 		today = timezone.now().date()
 		p=inflect.engine()
 		
-		for record in records.objects.filter(FirstAppDate__day=today.day, FirstAppDate__month=today.month):
+		for record in records.objects.filter(AssumptionDutyDate__day=today.day, AssumptionDutyDate__month=today.month):
 			
-			age= date.today()-record.FirstAppDate
+			age= date.today()-record.AssumptionDutyDate
 			age_in_days=age.days
 			age_in_yrs = age_in_days/365
 			rounded_age=int(age_in_yrs)
@@ -35,7 +35,7 @@ class Command(BaseCommand):
 			data = {
 			   'recipient[]': [record.Mobile],
 			   'sender': 'HR WNRHD',
-			   'message': "Hello %s, congratulations on your %s service anniversary today! You have been such significant part of our team and we couldn't imagine our workplace without you. Happy work anniversary!" % (record.FirstName, ordinalised_age),
+			   'message': "Hello %s, congratulations on your %s service anniversary today! You have been such significant part of our team and we couldn't imagine our workplace without you. Happy work anniversary! \nNB: This is a test." % (record.FirstName, ordinalised_age),
 			    
 			   'is_schedule': False,
 			   'schedule_date': ''

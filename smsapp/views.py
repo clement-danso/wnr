@@ -90,7 +90,7 @@ def createrecord(request):
 		
 		if fm.is_valid():
 			fm.save()
-			messages.success(request, "Record successfully created")
+			messages.success(request, "Record successfully created!")
 
 			fon=request.POST.get('Mobile')
 			titlename=request.POST.get('Title')
@@ -146,6 +146,7 @@ def updaterecord(request, pk):
 		fm = RecordsForm(request.POST or None, instance=record)
 		if fm.is_valid():
 			fm.save()
+			messages.success(request, "Record successfully updated!")
 			return redirect('/recordlist')
 	else:
 		fm = RecordsForm(instance=record)

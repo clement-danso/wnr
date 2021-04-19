@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.contrib import messages
 from smsapp.models import *
 from smsapp.forms import *
 import requests
@@ -89,7 +90,7 @@ def createrecord(request):
 		
 		if fm.is_valid():
 			fm.save()
-			
+			messages.success(request, "Record successfully created")
 
 			fon=request.POST.get('Mobile')
 			titlename=request.POST.get('Title')
@@ -150,7 +151,7 @@ def updaterecord(request, pk):
 		fm = RecordsForm(instance=record)
 	
 	context = {'fm':fm}
-	return render (request, 'smsapp/recordfrm.html', context)
+	return render (request, 'smsapp/recordupdatefrm.html', context)
 
 
 @login_required

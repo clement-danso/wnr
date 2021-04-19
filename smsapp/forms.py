@@ -14,7 +14,7 @@ class RecordsForm(forms.ModelForm):
             'LastName': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'Last Name'}),
             'OtherName': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'Other Name'}),
             'Gender': forms.Select (attrs={'class': 'form-control'}),
-            'DOB': forms.DateInput (format=('%m/%d/%Y'), attrs={'type':'date', 'class': 'form-control'}),
+            'DOB': forms.TextInput (attrs={'type':'date', 'class': 'form-control'}),
             'MaritalStatus': forms.Select (attrs={'class': 'form-control'}),
             'Religion': forms.Select (attrs={'class': 'form-control'}),
             'OfficialEmail': forms.EmailInput (attrs={'type':'email', 'class': 'form-control', 'placeholder':'Eg: joe@email.com'}),

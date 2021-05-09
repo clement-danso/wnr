@@ -131,7 +131,7 @@ def createrecord(request):
 										credit_left=bcreditleft
 										)
 			delivery_instance.save()
-		return redirect('/home')
+			return redirect('/home')
 		
 	context = {'fm':fm}
 	

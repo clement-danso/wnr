@@ -11,7 +11,11 @@
 {% block content %}
 <style>
 .myform {
-  margin: 30px 100px;
+  margin: 30px 150px;
+}
+
+.mybutton {
+  margin: 30px 300px;
 }
 </style>
 
@@ -26,10 +30,12 @@
         <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
         
       </div>
-
-     {{fom|crispy}}
+	  <div>
+		  {{fom|crispy}}
+	  </div>
      
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      
       
      
     </form>

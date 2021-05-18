@@ -46,10 +46,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    'import_export',
     #MYAPPS
-    'smsapp'
+    'smsapp',
     #'users'
 ]
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

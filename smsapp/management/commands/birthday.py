@@ -25,7 +25,7 @@ class Command(BaseCommand):
 			data = {
 			   'recipient[]': [record.Mobile],
 			   'sender': 'HR WNRHD',
-			   'message': 'Dear %s, the Western North Regional Health Directorate wishes you a happy birthday, a wonderful year and success in all you do. \nNB: This is a test' % record.FirstName,
+			   'message': 'Dear %s, the Western North Regional Health Directorate wishes you a happy birthday, a wonderful year and success in all you do.' % record.FirstName,
 			   'is_schedule': False,
 			   'schedule_date': ''
 			}

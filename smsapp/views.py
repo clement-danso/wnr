@@ -249,7 +249,7 @@ def createbmessagecat(request):
 		
 		cont=request.POST.get('Content')
 		
-		for recod in group_records:
+		for recod in cat_records:
 			endPoint = 'https://api.mnotify.com/api/sms/quick'
 			apiKey = 'rT5L5lrhhoCaP0BfKlSU9dNh6Vqp5RFwLKhQ6I8n7KyWL'
 			data = {

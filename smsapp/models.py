@@ -122,7 +122,7 @@ class records(models.Model):
 	grade = models.ForeignKey(grade, null=True, on_delete=models.SET_NULL)
 	bmc = models.ForeignKey(bmc, null=True, verbose_name='BMC', on_delete=models.SET_NULL)
 	unit = models.ForeignKey(unit, null=True, on_delete=models.SET_NULL, blank=True)
-	status = models.CharField(max_length=10, choices=STATUS, default=STATUS[0][0])
+	status = models.CharField(max_length=10, choices=STATUS, default=STATUS[0][0], null=True)
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
 	

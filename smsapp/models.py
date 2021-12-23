@@ -107,7 +107,7 @@ class records(models.Model):
 	Title = models.CharField(max_length=11, choices=TITLE, default=TITLE[0][0], blank=True)
 	FirstName = models.CharField(max_length=50, verbose_name='First Name')
 	LastName = models.CharField(max_length=50, verbose_name='Last Name')
-	OtherName = models.CharField(max_length=50, verbose_name='Other Name', blank=True)
+	OtherName = models.CharField(max_length=50, verbose_name='Other Name', null=True, blank=True)
 	Gender = models.CharField(max_length=10, choices=GENDER)
 	DOB = models.DateField(verbose_name='Date of Birth')
 	MaritalStatus = models.CharField(max_length=10, choices=MARITAL_STATUS, verbose_name='Marital Status', blank=True)

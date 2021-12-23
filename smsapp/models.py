@@ -123,8 +123,8 @@ class records(models.Model):
 	bmc = models.ForeignKey(bmc, null=True, verbose_name='BMC', on_delete=models.SET_NULL)
 	unit = models.ForeignKey(unit, null=True, on_delete=models.SET_NULL, blank=True)
 	status = models.CharField(max_length=10, choices=STATUS, default=STATUS[0][0], null=True)
-	date_created = models.DateTimeField(auto_now_add=True)
-	date_updated = models.DateTimeField(auto_now=True)
+	date_created = models.DateTimeField(auto_now_add=True, null=True)
+	date_updated = models.DateTimeField(auto_now=True, null=True)
 	
 	class Meta:
 		verbose_name_plural = 'records'

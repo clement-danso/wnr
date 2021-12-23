@@ -28,9 +28,12 @@
   {% csrf_token %}
 	
 				
-						
 						  <label class="radio">
-							<input type="radio" name="criteria" value="district" checked>
+							<input type="radio" name="criteria" value="all" checked>
+							All
+						  </label>
+						  <label class="radio">
+							<input type="radio" name="criteria" value="district" >
 							District
 						  </label>
 						  <label class="radio">
@@ -38,7 +41,7 @@
 							Category
 						  </label>
 					<br><br>
-					<button type="button" class="btn btn-secondary">Cancel</button>
+					<a type="button" class="btn btn-secondary" href="{% url 'home' %}">Cancel</a>
 					<button type="submit" class="btn btn-primary" >Continue</button>
 					
 </form>

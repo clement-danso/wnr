@@ -31,26 +31,7 @@ class bmc(models.Model):
 	def __str__(self):
 		return self.bmcName
 		
-class category(models.Model):
-	catName = models.CharField(max_length=100)
-	
-	class Meta:
-		verbose_name_plural='Categories'
-		
-	def __str__(self):
-		return self.catName
-		
-	
-	
-class grade(models.Model):
-	grade = models.CharField(max_length=100)
-	category = models.ForeignKey(category, null=True, on_delete=models.SET_NULL)
-	
-	class Meta:
-		ordering = ('grade',)
-	
-	def __str__(self):
-		return self.grade
+
 	
 class group(models.Model):
 	
@@ -66,7 +47,27 @@ class unit(models.Model):
 	
 	def __str__(self):
 		return self.unit
+
+
+class category(models.Model):
+	catName = models.CharField(max_length=100)
 	
+	class Meta:
+		verbose_name_plural='Categories'
+		
+	def __str__(self):
+		return self.catName
+		
+class grade(models.Model):
+	grade = models.CharField(max_length=100)
+	category = models.ForeignKey(category, null=True, on_delete=models.SET_NULL)
+	
+	class Meta:
+		ordering = ('grade',)
+	
+	def __str__(self):
+		return self.grade 
+
 class records(models.Model):
 	GENDER = (
 			 ('Male', 'Male'),
@@ -109,7 +110,7 @@ class records(models.Model):
 	OtherName = models.CharField(max_length=50, verbose_name='Other Name', blank=True)
 	Gender = models.CharField(max_length=10, choices=GENDER)
 	DOB = models.DateField(verbose_name='Date of Birth')
-	MaritalStatus = models.CharField(max_length=10, choices=MARITAL_STATUS, verbose_name='Marital Status')
+	MaritalStatus = models.CharField(max_length=10, choices=MARITAL_STATUS, verbose_name='Marital Status', blank=True)
 	Religion = models.CharField(max_length=10, choices=RELIGION, blank=True)
 	OfficialEmail= models.CharField(max_length=50,verbose_name='Official Email', unique=True, blank=True)
 	PersonalEmail= models.CharField(max_length=50, verbose_name='Personal Email', blank=True)
@@ -120,7 +121,7 @@ class records(models.Model):
 	category = models.ForeignKey(category, null=True, verbose_name='Category', on_delete=models.SET_NULL)
 	grade = models.ForeignKey(grade, null=True, on_delete=models.SET_NULL)
 	bmc = models.ForeignKey(bmc, null=True, verbose_name='BMC', on_delete=models.SET_NULL)
-	unit = models.ForeignKey(unit, null=True, on_delete=models.SET_NULL)
+	unit = models.ForeignKey(unit, null=True, on_delete=models.SET_NULL, blank=True)
 	status = models.CharField(max_length=10, choices=STATUS, default=STATUS[0][0])
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
@@ -133,19 +134,6 @@ class records(models.Model):
 
 
 
-class broadcastmessagecat(models.Model):
-	
-	
-	Subject=models.CharField(max_length=50)
-	Content=models.CharField(max_length=400)
-	category=models.ForeignKey(category, null=True, on_delete=models.SET_NULL)
-	
-	
-	class Meta:
-		verbose_name_plural='District Broadcast Messages'
-	
-	def __str__(self):
-		return self.Subject
 
 class broadcastmessagedis(models.Model):
 	
@@ -156,11 +144,35 @@ class broadcastmessagedis(models.Model):
 	
 	
 	class Meta:
-		verbose_name_plural='District Broadcast Messages'
+		verbose_name_plural='District-based Broadcast Messages'
 	
 	def __str__(self):
 		return self.Subject
 
+
+class broadcastmessagecat(models.Model):
+	
+	
+	Subject=models.CharField(max_length=50)
+	Content=models.CharField(max_length=400)
+	category=models.ManyToManyField(category)
+	
+	
+	class Meta:
+		verbose_name_plural='Category-based Broadcast Messages'
+	
+	def __str__(self):
+		return self.Subject
+
+class broadcastmessageall(models.Model):
+	Subject=models.CharField(max_length=50)
+	Content=models.CharField(max_length=400)
+	
+	class Meta:
+		verbose_name_plural='Broadcast Messages to all'
+	
+	def __str__(self):
+		return self.Subject
 
 class delivery(models.Model):
 	sms_status = models.CharField(max_length=50)
@@ -177,3 +189,7 @@ class delivery(models.Model):
 	
 	def __str__(self):
 		return self.sms_status
+
+	
+
+

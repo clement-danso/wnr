@@ -1,5 +1,5 @@
 from django import forms  
-from smsapp.models import records, group, broadcastmessagecat, broadcastmessagedis, grade
+from smsapp.models import records, group, broadcastmessagecat, broadcastmessagedis,broadcastmessageall, grade
 
 
 class RecordsForm(forms.ModelForm):
@@ -55,7 +55,21 @@ class BroadcastmessagecatForm(forms.ModelForm):
 		widgets = {
 			'Subject': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'Eg: Pin Renewal'}),
 			'Content': forms.Textarea (attrs={'class': 'form-control', "rows":5, 'placeholder':'Enter the content of your message here'}),
-			'category':forms.Select (attrs={'class': 'form-control'}),
+			'category':forms.SelectMultiple (attrs={'class': 'form-control'}),
+            #'Group': forms.Select (attrs={'class': 'form-control'}),
+        
+            
+        }
+
+class BroadcastmessageallForm(forms.ModelForm):
+	class Meta:
+		model = broadcastmessageall
+		fields = '__all__'
+		
+		widgets = {
+			'Subject': forms.TextInput (attrs={'class': 'form-control', 'placeholder':'Eg: Pin Renewal'}),
+			'Content': forms.Textarea (attrs={'class': 'form-control', "rows":5, 'placeholder':'Enter the content of your message here'}),
+			#'category':forms.SelectMultiple (attrs={'class': 'form-control'}),
             #'Group': forms.Select (attrs={'class': 'form-control'}),
         
             

@@ -27,6 +27,7 @@ urlpatterns = [
     path('grouplist/', views.grouplist, name="grouplist"),
     path('newbmessagecat/', views.createbmessagecat, name="createbmessagecat"),
     path('newbmessagedis/', views.createbmessagedis, name="createbmessagedis"),
+    path('newbmessageall/', views.createbmessageall, name="createbmessageall"),
     path('newgroup/', views.creategroup, name="creategroup"),
     path('newmesstemp/', views.messtemp, name="messtemp"),
     path('templatelist/', views.templatelist, name="templatelist"),

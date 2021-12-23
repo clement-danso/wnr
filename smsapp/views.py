@@ -179,12 +179,17 @@ def bcriteria(request):
 		return redirect('/newbmessagedis')
 	elif request.method =='POST' and crit=='category':
 		return redirect('/newbmessagecat')
+	elif request.method =='POST' and crit=='all':
+		return redirect('/newbmessageall')
 	
 	
 	
 		
 	context = {}
 	return render(request, 'smsapp/bcriteria.html', context)
+
+
+
 
 @login_required
 def createbmessagedis(request):
@@ -288,6 +293,64 @@ def createbmessagecat(request):
 	
 	return render(request, 'smsapp/bcmessagecatfrm.html', context)
 
+
+@login_required
+def createbmessageall(request):
+	"""form page for creating records"""
+	alrecods=records.objects.all()
+	recodsnum=alrecods.count()
+	
+	
+	fm = BroadcastmessageallForm()
+	if request.method == 'POST':
+		fm = BroadcastmessageallForm(request.POST)
+		cat=request.POST.get('category')
+		
+		br_records= alrecords
+		
+		cont=request.POST.get('Content')
+		
+		for recod in br_records:
+			endPoint = 'https://api.mnotify.com/api/sms/quick'
+			apiKey = 'rT5L5lrhhoCaP0BfKlSU9dNh6Vqp5RFwLKhQ6I8n7KyWL'
+			data = {
+			   'recipient[]': [recod.Mobile],
+			   'sender': 'HR WNRHD',
+			   'message': cont,
+			   'is_schedule': False,
+			   'schedule_date': ''
+			}
+			url = endPoint + '?key=' + apiKey
+			response = requests.post(url, data)
+			data = response.json()
+			
+			bstatus=json.dumps(data['status'])
+			bsmstype='Broadcast'
+			btotalsent=json.dumps(data["summary"]["total_sent"])
+			btotalrejected=json.dumps(data["summary"]["total_rejected"])
+			brecipient=json.dumps(data["summary"]["numbers_sent"])
+			bcreditused=json.dumps(data["summary"]["credit_used"])
+			bcreditleft=json.dumps(data["summary"]["credit_left"])
+			
+			delivery_instance = delivery(
+									sms_status=bstatus, 
+									smstype=bsmstype, 
+									total_sent=btotalsent, 
+									total_rejected=btotalrejected, 
+									recipient=brecipient, 
+									credit_used=bcreditused, 
+									credit_left=bcreditleft
+									)
+			delivery_instance.save()
+			
+			return redirect('/home')
+	
+	context = {'fm':fm, 'recodsnum':recodsnum}
+	
+	return render(request, 'smsapp/bcmessageallfrm.html', context)
+
+
+
 @login_required
 def messtemp(request):
 	fm=MesstempForm()
@@ -317,6 +380,9 @@ def messtemp(request):
 	context = {'fm':fm}
 
 	return render(request, 'smsapp/messtempfrm.html', context)
+
+
+
 
 @login_required
 def recordlist(request):

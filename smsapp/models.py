@@ -115,7 +115,7 @@ class records(models.Model):
 	OfficialEmail= models.CharField(max_length=50,verbose_name='Official Email', unique=True, null=True, blank=True)
 	PersonalEmail= models.CharField(max_length=50, verbose_name='Personal Email',null=True, blank=True)
 	Mobile = models.CharField(max_length=10, verbose_name='1st Mobile', unique=True)
-	Mobile1 = models.CharField(max_length=10,verbose_name='2nd Mobile', blank=True)
+	Mobile1 = models.CharField(max_length=10,verbose_name='2nd Mobile', null=True, blank=True)
 	FirstAppDate = models.DateField(verbose_name='First Appointment Date')
 	AssumptionDutyDate= models.DateField(verbose_name='Date of Assumption of Duty')
 	category = models.ForeignKey(category, null=True, verbose_name='Category', on_delete=models.SET_NULL)

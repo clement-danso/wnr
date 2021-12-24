@@ -306,7 +306,7 @@ def createbmessageall(request):
 		fm = BroadcastmessageallForm(request.POST)
 		cat=request.POST.get('category')
 		
-		br_records= alrecords
+		br_records= alrecods
 		
 		cont=request.POST.get('Content')
 		

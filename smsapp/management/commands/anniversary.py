@@ -35,7 +35,7 @@ class Command(BaseCommand):
 			data = {
 			   'recipient[]': [record.Mobile],
 			   'sender': 'HR WNRHD',
-			   'message': "Hello %s, congratulations on your %s service anniversary today! You have been such significant part of our team and we couldn't imagine our workplace without you. Happy work anniversary! \nNB: This is a test." % (record.FirstName, ordinalised_age),
+			   'message': "Hello %s, congratulations on your %s service anniversary today! You have been such significant part of our team and we couldn't imagine our workplace without you. Happy work anniversary!" % (record.FirstName, ordinalised_age),
 			    
 			   'is_schedule': False,
 			   'schedule_date': ''

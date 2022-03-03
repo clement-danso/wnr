@@ -94,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'wnr',  
         'USER':'djangouser',  
-        'PASSWORD':'quoda.1010',  
+        'PASSWORD':'quoda.1000',  
         'HOST':'localhost',  
         'PORT':'3306'  
     }  

@@ -49,7 +49,7 @@ def records_update(request):
 def home(request):
 	today = timezone.now().date()
 	alrecods=records.objects.all()
-	recods=records.objects.all().order_by('-date_created')[:5]
+	recods=records.objects.all().order_by('-date_created')[:5][::-1]
 	deliveries=delivery.objects.all().order_by('-date_created')[:5]
 	aldeliveries=delivery.objects.all()
 	act_recods=records.objects.filter(status='Active')

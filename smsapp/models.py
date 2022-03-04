@@ -77,7 +77,7 @@ class records(models.Model):
 	TITLE = (
 			 ('Mr.', 'Mr.'),
 			 ('Mrs.', 'Mrs.'),
-			 ('Miss.', 'Mrs.'),
+			 ('Miss.', 'Miss.'),
 			 ('Dr.', 'Dr.'),
 			
 			 )

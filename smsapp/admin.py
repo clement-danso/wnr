@@ -6,7 +6,7 @@ from import_export.admin import ImportExportModelAdmin
 
 class RecordsAdmin(ImportExportModelAdmin):
 	exclude = ('status','date_created', 'date_updated')
-	list_display = ('EmpNumber', 'FirstName', 'LastName', 'OfficialEmail', 'Mobile', 'category', 'grade', 'bmc', 'status')
+	list_display = ('EmpNumber', 'FirstName', 'LastName', 'OfficialEmail', 'Mobile', 'category', 'grade', 'bmc', 'status', 'date_created')
 	resource_class=recordsResource   
 
 # Register your models here.

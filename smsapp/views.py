@@ -105,7 +105,7 @@ def createrecord(request):
 			data = {
 				'recipient[]': fon,
 				'sender': 'HR WNRHD',
-				'message': 'Dear %s, You are welcome to the Western North Regional Health Directorate SMS platform. Thank you for joining this great health family.\nNB: This is a test \n\nRSVP: 0204912857' % firstname,
+				'message': 'Dear %s, You are welcome to the Western North Regional Health Directorate SMS platform. Thank you for joining this great health family.\n\nRSVP: 0204912857' % firstname,
 				'is_schedule': False,
 				'schedule_date': ''
 				}
